@@ -1,6 +1,8 @@
 
 # Preguntas
 
+## Respondidas
+
 1. ¿Cómo sabemos cuáles filas quitar (cuando son valores nulos)?
     - Hay que quitarlas dependiendo de cuántos valores son. Si son más del 5%, se pueden inputar con los valores como la media o mediana categórica.
 

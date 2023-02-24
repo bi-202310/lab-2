@@ -1,5 +1,5 @@
 
-# Preguntas para Fabi
+# Preguntas
 
 1. ¿Cómo sabemos cuáles filas quitar (cuando son valores nulos)?
 

@@ -1,6 +1,8 @@
 
 # Preguntas
 
+1. ¿Tiene sentido que el intercepto de la regresion este tan por debajo de los valores de algunos de los atributos?
+
 ## Respondidas
 
 1. ¿Cómo sabemos cuáles filas quitar (cuando son valores nulos)?
@@ -20,3 +22,5 @@
 
 6. ¿Cómo hacemos el pipeline?
     - Por ahora no hay que preocuparse (si hay que preocuparse) pero entonces es escoger lo que hacemos en nuestro modelo: cómo transformamos los datos, cómo les asignamos cosas, etc; y ponerlo en el pipeline, asumiendo que nos llegan de la misma forma que como los tenemos nosotros (con las mismas variables, categorias, columnas, etc)
+
+

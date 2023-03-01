@@ -3,6 +3,8 @@
 
 1. ¿Tiene sentido que el intercepto de la regresion este tan por debajo de los valores de algunos de los atributos?
 
+2. ¿Como saber que features usar de acuerdo a la correlacion entre las variables?
+
 ## Respondidas
 
 1. ¿Cómo sabemos cuáles filas quitar (cuando son valores nulos)?

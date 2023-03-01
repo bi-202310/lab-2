@@ -111,6 +111,9 @@ for col in categorical:
 ### 3.1 Preparación de los datos
 """
 
+# Make a column with the age of the car
+df['age'] = 2020 - df['year']
+
 # Fill numerical values with the median so as not to skew the data
 df = df.fillna(df.median())
 
@@ -124,6 +127,13 @@ df['owner'] = df['owner'].replace({'First Owner': 1, 'Second Owner': 2, 'Third O
 df['seller_type'] = df['seller_type'].replace({'Individual': 1, 'Dealer': 2, 'Trustmark Dealer': 3})
 df['fuel'] = df['fuel'].replace({'Petrol': 1, 'Diesel': 2, 'CNG': 3, 'LPG': 4, 'Electric': 5})
 df['transmission'] = df['transmission'].replace({'Manual': 1, 'Automatic': 2})
+
+# Make a scaler to normalize de data
+scaler = StandardScaler()
+x = scaler.fit_transform(df[features])
+
+# Make a dataframe with the normalized data
+df = pd.DataFrame(x, columns=features)
 
 df.info()
 
@@ -185,6 +195,14 @@ for i in range(len(features)):
     m = regression.coef_[i]
     b = regression.intercept_
 
-    axs[i].plot(x, y_train, 'o', alpha = 0.1)
     axs[i].plot(x, x * m + b)
     axs[i].set_title(col)
+
+# Comparing the real values with the predicted values
+
+y_pred = regression.predict(x_test)
+
+
+
+
+

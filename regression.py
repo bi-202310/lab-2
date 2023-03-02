@@ -229,4 +229,29 @@ plt.figure(figsize=(10, 5))
 sns.boxplot(abs(y_test - y_pred), orient='v')
 plt.title('Absolute error of objective variable')
 plt.show()
-    
+
+
+# Make a pipeline to make the predictions
+
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('regression', LinearRegression())
+])
+
+pipeline.fit(x_train, y_train)
+
+y_pred = pipeline.predict(x_test)
+df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+
+df['Difference'] = df['Actual'] - df['Predicted']
+df['Difference %'] = df['Difference'] / df['Actual'] * 100
+df
+
+# Print the mean absolute error, mean squared error and the root mean squared error
+
+print('Mean Absolute Error Train:', mean_absolute_error(y_train, pipeline.predict(x_train)))
+print('Mean Absolute Error Test:', mean_absolute_error(y_test, pipeline.predict(x_test)))
+
+print('Root Mean Squared Error Train:', np.sqrt(mean_squared_error(y_train, pipeline.predict(x_train))))
+print('Root Mean Squared Error Test:', np.sqrt(mean_squared_error(y_test, pipeline.predict(x_test))))
+

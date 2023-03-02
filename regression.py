@@ -198,11 +198,35 @@ for i in range(len(features)):
     axs[i].plot(x, x * m + b)
     axs[i].set_title(col)
 
-# Comparing the real values with the predicted values
+# Comparing the real values with the predicted values with an difference percentage for each prediction
 
 y_pred = regression.predict(x_test)
 
+df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+df['Difference'] = df['Actual'] - df['Predicted']
+df['Difference %'] = df['Difference'] / df['Actual'] * 100
+df
+
+# Print the mean absolute error, mean squared error and the root mean squared error
+
+print('Mean Absolute Error Train:', mean_absolute_error(y_train, regression.predict(x_train)))
+print('Mean Absolute Error Test:', mean_absolute_error(y_test, regression.predict(x_test)))
+
+print('Root Mean Squared Error Train:', np.sqrt(mean_squared_error(y_train, regression.predict(x_train))))
+print('Root Mean Squared Error Test:', np.sqrt(mean_squared_error(y_test, regression.predict(x_test))))
 
 
+# Plot real value of objective variable on a boxplot
 
+plt.figure(figsize=(10, 5))
+sns.boxplot(y_test, orient='v')
+plt.title('Real value of objective variable')
+plt.show()
 
+# Plot |real value - predicted value| of objective variable on a boxplot
+
+plt.figure(figsize=(10, 5))
+sns.boxplot(abs(y_test - y_pred), orient='v')
+plt.title('Absolute error of objective variable')
+plt.show()
+    

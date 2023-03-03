@@ -128,12 +128,16 @@ df['seller_type'] = df['seller_type'].replace({'Individual': 1, 'Dealer': 2, 'Tr
 df['fuel'] = df['fuel'].replace({'Petrol': 1, 'Diesel': 2, 'CNG': 3, 'LPG': 4, 'Electric': 5})
 df['transmission'] = df['transmission'].replace({'Manual': 1, 'Automatic': 2})
 
-# Make a scaler to normalize de data
+# Make a scaler to normalize de data, but not the target variable
 scaler = StandardScaler()
-x = scaler.fit_transform(df[features])
+x = df
+y = df['selling_price']
+features = ["antiquity", "km_driven", "seats", "fuel", "transmission", "max_power"]
+x = scaler.fit_transform(x[features])
 
-# Make a dataframe with the normalized data
+# Make a dataframe with the normalized data, including the target variable
 df = pd.DataFrame(x, columns=features)
+df['selling_price'] = y
 
 df.info()
 

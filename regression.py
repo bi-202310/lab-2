@@ -255,3 +255,38 @@ print('Mean Absolute Error Test:', mean_absolute_error(y_test, pipeline.predict(
 print('Root Mean Squared Error Train:', np.sqrt(mean_squared_error(y_train, pipeline.predict(x_train))))
 print('Root Mean Squared Error Test:', np.sqrt(mean_squared_error(y_test, pipeline.predict(x_test))))
 
+class AntiquityTransformer(BaseEstimator, TransformerMixin):
+    def __init__(self):
+        pass
+
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X):
+        X = X.copy()
+        X["year"] = 2020 - X["year"].astype(int)
+        return X[["year", "km_driven", "seats", "max_power"]]
+
+numeric_cols = ["year", "km_driven", "seats", "max_power"]
+categorical_cols = ["fuel", "transmission"]
+
+numeric_preprocessor = Pipeline([
+    ("imputer", SimpleImputer(strategy="median")),
+    ("antiquity", AntiquityTransformer())
+])
+
+categorical_preprocessor = Pipeline([
+    ("imputer", SimpleImputer(strategy="most_frequent")),
+    ('encoder', OneHotEncoder(categories='auto', handle_unknown='ignore'))
+])
+
+preprocessor = ColumnTransformer(transformers=[
+    ('num', numeric_preprocessor, numeric_cols),
+    ('cat', categorical_preprocessor, categorical_cols)
+])
+
+pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('scaler', StandardScaler()),
+    ('regression', LinearRegression())
+])
